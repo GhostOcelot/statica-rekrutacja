@@ -6,24 +6,51 @@ import {
   XyDataSeries,
   SweepAnimation,
   SciChartJSDarkv2Theme,
+  Thickness,
 } from 'scichart';
+import {
+  dateTitleStyle,
+  priceTitleStyle,
+  amountTitleStyle,
+  dateLabelStyle,
+  priceLabelStyle,
+  amountLabelStyle,
+} from './chart-styles';
 
 export async function initSciChart(prices, amounts, time) {
   const { sciChartSurface, wasmContext } = await SciChartSurface.create('scichart-root', {
     theme: new SciChartJSDarkv2Theme(),
-    title: 'SciChart.js First Chart',
+    title: 'Statica - rekrutacja',
     titleStyle: { fontSize: 22 },
   });
+
+  sciChartSurface.padding = Thickness.fromNumber(20);
 
   sciChartSurface.xAxes.add(
     new DateTimeNumericAxis(wasmContext, {
       axisTitle: 'Date and Time',
-      TextFormatting: 'dd-MMM-yyyy',
-      SubDayTextFormatting: 'HH:mm:ss',
+      axisTitleStyle: dateTitleStyle,
+      labelStyle: dateLabelStyle,
     }),
   );
-  sciChartSurface.yAxes.add(new NumericAxis(wasmContext, { axisTitle: 'Price', id: 'Price' }));
-  sciChartSurface.yAxes.add(new NumericAxis(wasmContext, { axisTitle: 'Amount', id: 'Amount' }));
+
+  sciChartSurface.yAxes.add(
+    new NumericAxis(wasmContext, {
+      axisTitle: 'Price',
+      id: 'Price',
+      axisTitleStyle: priceTitleStyle,
+      labelStyle: priceLabelStyle,
+    }),
+  );
+
+  sciChartSurface.yAxes.add(
+    new NumericAxis(wasmContext, {
+      axisTitle: 'Amount',
+      id: 'Amount',
+      axisTitleStyle: amountTitleStyle,
+      labelStyle: amountLabelStyle,
+    }),
+  );
 
   sciChartSurface.renderableSeries.add(
     new FastLineRenderableSeries(wasmContext, {
@@ -34,7 +61,7 @@ export async function initSciChart(prices, amounts, time) {
         xValues: time,
         yValues: prices,
       }),
-      animation: new SweepAnimation({ duration: 300, fadeEffect: true }),
+      animation: new SweepAnimation({ duration: 2000 }),
     }),
   );
 
@@ -47,7 +74,7 @@ export async function initSciChart(prices, amounts, time) {
         xValues: time,
         yValues: amounts,
       }),
-      animation: new SweepAnimation({ duration: 300, fadeEffect: true }),
+      animation: new SweepAnimation({ duration: 2000 }),
     }),
   );
 

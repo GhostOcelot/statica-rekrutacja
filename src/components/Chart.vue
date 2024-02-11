@@ -1,6 +1,5 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div>
     <div id="scichart-root" style="width: 600px; height: 400px; margin: auto"></div>
   </div>
 </template>
@@ -19,6 +18,8 @@ const api = {
 };
 
 export default defineComponent({
+    name: "scichart2d",
+
     data() {
     return {
       prices: [],
@@ -49,9 +50,5 @@ export default defineComponent({
       sciChartSurface.delete();
     });
   },
-  name: "scichart2d",
-  props: {
-    msg: String
-  }
 });
 </script>
