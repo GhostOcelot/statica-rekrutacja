@@ -40,19 +40,12 @@ export default defineComponent({
          const prices = data.map(data => data.price)
          const amounts = data.map(data => data.amount)
          const time = data.map(data => data.dt)
-
-        console.log(data)
-
-        console.log("SciChart2d.vue onMounted");
         this.chartInitializationPromise = initSciChart(prices, amounts, time);
-
   });
   },
 
   beforeUnmount() {
-    console.log("SciChart2d.vue beforeUnmount");
     this.chartInitializationPromise.then((sciChartSurface) => {
-      console.log("..deleting sciChartSurface");
       sciChartSurface.delete();
     });
   },
