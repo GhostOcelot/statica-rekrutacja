@@ -39,12 +39,12 @@ export default defineComponent({
          this.chartData = data
          const prices = data.map(data => data.price)
          const amounts = data.map(data => data.amount)
+         const time = data.map(data => data.dt)
 
-         console.log(prices)
-         console.log(amounts)
+        console.log(data)
 
         console.log("SciChart2d.vue onMounted");
-        this.chartInitializationPromise = initSciChart(prices, amounts);
+        this.chartInitializationPromise = initSciChart(prices, amounts, time);
 
   });
   },
